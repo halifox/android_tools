@@ -4,6 +4,7 @@ import path from 'path'
 import {v4 as uuidv4} from 'uuid'
 import {pipeline} from 'stream/promises'
 import {Readable} from 'stream'
+import {ReadableStream} from 'stream/web'
 import {exec} from 'child_process';
 
 export async function uploadMapping(formData: FormData) {
@@ -13,7 +14,7 @@ export async function uploadMapping(formData: FormData) {
     const mappingPath = path.resolve('./uploads', `${mapping}.txt`)
     await fs.promises.mkdir(path.dirname(mappingPath), {recursive: true})
 
-    const source = Readable.fromWeb(file.stream());
+    const source = Readable.fromWeb(file.stream() as ReadableStream);
     const destination = fs.createWriteStream(mappingPath)
     await pipeline(source, destination)
 
