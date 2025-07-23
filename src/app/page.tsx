@@ -11,10 +11,6 @@ export default function Home() {
 
     const handleSubmit = async ({mapping, obfuscated}: { mapping: string, obfuscated: string }) => {
         try {
-            if (!mapping) {
-                return modal.error({title: '请上传 mapping.txt 文件',})
-            }
-
             setLoading(true)
             const deobfuscated = await retrace(mapping, obfuscated)
             form.setFieldsValue({obfuscated: deobfuscated})
@@ -32,8 +28,7 @@ export default function Home() {
     const onChange = ({file}: { file: UploadFile }) => {
         if (file.status === 'done') {
             const url = file.response.url;
-            console.log('上传成功，文件地址:', url);
-            form.setFieldsValue({mapping: url})
+            form.setFieldValue('mapping', url)
         }
     }
 
@@ -43,20 +38,26 @@ export default function Home() {
             style={{margin: '24px'}}
         >
             <Form form={form} layout="vertical" onFinish={handleSubmit}>
+                <Form.Item name="mapping" hidden={true}/>
                 <Form.Item
-                    label="上传 mapping.txt 文件"
-                    name="mapping"
-                    rules={[{required: true, message: '请上传 mapping.txt 文件'}]}
+                    label="上传文件"
+                    name="upload"
+                    valuePropName="fileList"
+                    getValueFromEvent={e => (Array.isArray(e) ? e : e?.fileList)}
+                    rules={[{
+                        required: true,
+                        message: '请上传文件',
+                        validator: (_, value) =>
+                            form.getFieldValue("mapping")
+                                ? Promise.resolve()
+                                : Promise.reject(new Error('请上传文件')),
+                    }]}
                 >
-                    <Upload maxCount={1} accept=".txt" action="/api/upload" onChange={onChange}>
+                    <Upload action="/api/upload" maxCount={1} accept=".txt" onChange={onChange}>
                         <Button icon={<UploadOutlined/>}>选择文件</Button>
                     </Upload>
                 </Form.Item>
-                <Form.Item
-                    label="混淆内容"
-                    name="obfuscated"
-                    rules={[{required: true, message: '请输入混淆内容'}]}
-                >
+                <Form.Item label="混淆内容" name="obfuscated" rules={[{required: true, message: '请输入混淆内容'}]}>
                     <Input.TextArea
                         rows={30}
                         placeholder="粘贴混淆日志..."
@@ -77,11 +78,7 @@ export default function Home() {
                 </Form.Item>
                 <Form.Item>
                     <Space>
-                        <Button
-                            htmlType="submit"
-                            type="primary"
-                            loading={loading}
-                        >
+                        <Button htmlType="submit" type="primary" loading={loading}>
                             反混淆
                         </Button>
                     </Space>
