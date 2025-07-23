@@ -1,5 +1,6 @@
 import "./globals.css";
 import {Metadata} from "next";
+import '@ant-design/v5-patch-for-react-19';
 import {App, ConfigProvider} from "antd";
 
 export const metadata: Metadata = {

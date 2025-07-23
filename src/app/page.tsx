@@ -1,4 +1,5 @@
 'use client'
+import '@ant-design/v5-patch-for-react-19';
 import {retrace} from './actions'
 import {App, Button, Card, Form, Input, Space, Upload, UploadFile} from 'antd'
 import {UploadOutlined} from '@ant-design/icons'
