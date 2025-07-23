@@ -18,6 +18,21 @@
 - Tailwind CSS 4
 - uuid
 
+## 部署
+```bash
+apt install google-android-cmdline-tools-11.0-installer
+
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+
+git clone https://github.com/halifox/android_tools.git
+cd android_tools
+
+npm install
+npm run build
+npm run start
+```
+
 ## 许可证
 
 本项目遵循 [GPL-3.0 License](LICENSE)。
