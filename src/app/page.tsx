@@ -1,22 +1,12 @@
 'use client'
-import {retrace, uploadMapping} from './actions'
-import {Button, Card, Form, Input, Space, Upload} from 'antd'
+import {retrace} from './actions'
+import {Button, Card, Form, Input, Space, Upload, UploadFile} from 'antd'
 import {UploadOutlined} from '@ant-design/icons'
 import {useState} from 'react'
 
 export default function Home() {
     const [form] = Form.useForm()
     const [loading, setLoading] = useState(false)
-    const [disabled, setDisabled] = useState(true)
-
-    const handleUpload = async (file: File) => {
-        const formData = new FormData()
-        formData.append('file', file)
-        const mapping = await uploadMapping(formData)
-        form.setFieldsValue({mapping})
-        setDisabled(false)
-        return true
-    }
 
     const handleSubmit = async ({mapping, obfuscated}: { mapping: string, obfuscated: string }) => {
         setLoading(true)
@@ -25,23 +15,26 @@ export default function Home() {
         setLoading(false)
     }
 
+    const onChange = ({file}: { file: UploadFile }) => {
+        if (file.status === 'done') {
+            const url = file.response.url;
+            console.log('上传成功，文件地址:', url);
+            form.setFieldsValue({mapping: url})
+        }
+    }
+
     return (
         <Card
             title="ProGuard 反混淆工具"
             style={{margin: '24px'}}
         >
             <Form form={form} layout="vertical" onFinish={handleSubmit}>
-                <Form.Item name="mapping" hidden>
-                    <Input/>
-                </Form.Item>
                 <Form.Item
                     label="上传 mapping.txt 文件"
-                    name="mapping_file"
+                    name="mapping"
                     rules={[{required: true, message: '请上传 mapping.txt 文件'}]}
-                    valuePropName="fileList"
-                    getValueFromEvent={e => e?.fileList}
                 >
-                    <Upload beforeUpload={handleUpload} maxCount={1} accept=".txt" showUploadList={true}>
+                    <Upload maxCount={1} accept=".txt" action="/api/upload" onChange={onChange}>
                         <Button icon={<UploadOutlined/>}>选择文件</Button>
                     </Upload>
                 </Form.Item>

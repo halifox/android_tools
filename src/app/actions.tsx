@@ -8,6 +8,7 @@ import {ReadableStream} from 'stream/web'
 import {exec} from 'child_process';
 
 export async function uploadMapping(formData: FormData) {
+    console.log("uploadMapping", formData)
     const file = formData.get('file') as File
 
     const mapping = uuidv4();
@@ -22,6 +23,7 @@ export async function uploadMapping(formData: FormData) {
 }
 
 export async function retrace(mapping: string, obfuscated: string) {
+    console.log("retrace", mapping, obfuscated)
     const mappingPath = path.resolve('./uploads', `${mapping}.txt`);
     const obfuscatedPath = path.resolve('./uploads', `${uuidv4()}.txt`);
     const deobfuscatedPath = path.resolve('./uploads', `${uuidv4()}.txt`);
