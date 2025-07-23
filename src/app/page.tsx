@@ -38,7 +38,9 @@ export default function Home() {
             style={{margin: '24px'}}
         >
             <Form form={form} layout="vertical" onFinish={handleSubmit}>
-                <Form.Item name="mapping" hidden={true}/>
+                <Form.Item name="mapping" hidden={true}>
+                    <Input/>
+                </Form.Item>
                 <Form.Item
                     label="上传文件"
                     name="upload"
