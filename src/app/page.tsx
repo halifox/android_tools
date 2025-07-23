@@ -1,18 +1,28 @@
 'use client'
 import {retrace} from './actions'
-import {Button, Card, Form, Input, Space, Upload, UploadFile} from 'antd'
+import {App, Button, Card, Form, Input, Space, Upload, UploadFile} from 'antd'
 import {UploadOutlined} from '@ant-design/icons'
 import {useState} from 'react'
 
 export default function Home() {
+    const {message, notification, modal} = App.useApp();
     const [form] = Form.useForm()
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async ({mapping, obfuscated}: { mapping: string, obfuscated: string }) => {
-        setLoading(true)
-        const deobfuscated = await retrace(mapping, obfuscated)
-        form.setFieldsValue({obfuscated: deobfuscated})
-        setLoading(false)
+        try {
+            setLoading(true)
+            const deobfuscated = await retrace(mapping, obfuscated)
+            form.setFieldsValue({obfuscated: deobfuscated})
+        } catch (e: unknown) {
+            const error = e instanceof Error ? e : new Error(String(e));
+            modal.error({
+                title: '失败',
+                content: error.stack || error.message,
+            })
+        } finally {
+            setLoading(false)
+        }
     }
 
     const onChange = ({file}: { file: UploadFile }) => {

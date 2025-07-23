@@ -1,5 +1,6 @@
 import "./globals.css";
 import {Metadata} from "next";
+import {App, ConfigProvider} from "antd";
 
 export const metadata: Metadata = {
     title: 'ProGuard 反混淆工具',
@@ -14,7 +15,11 @@ export default function RootLayout({children,}: Readonly<{
     return (
         <html lang="en">
         <body>
-        {children}
+        <ConfigProvider>
+            <App>
+                {children}
+            </App>
+        </ConfigProvider>
         </body>
         </html>
     );
