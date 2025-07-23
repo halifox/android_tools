@@ -11,6 +11,10 @@ export default function Home() {
 
     const handleSubmit = async ({mapping, obfuscated}: { mapping: string, obfuscated: string }) => {
         try {
+            if (!mapping) {
+                return modal.error({title: '请上传 mapping.txt 文件',})
+            }
+
             setLoading(true)
             const deobfuscated = await retrace(mapping, obfuscated)
             form.setFieldsValue({obfuscated: deobfuscated})
