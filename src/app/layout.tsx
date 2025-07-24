@@ -4,8 +4,7 @@ import '@ant-design/v5-patch-for-react-19';
 import {App, ConfigProvider} from "antd";
 
 export const metadata: Metadata = {
-    title: 'ProGuard 反混淆工具',
-    description: '在线解析和还原 ProGuard 混淆的类与方法，支持批量映射处理',
+    title: 'Android 在线工具箱',
     icons: {
         icon: '/favicon.svg',
     },
