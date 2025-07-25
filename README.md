@@ -1,24 +1,23 @@
-# 在线 ProGuard 反混淆工具
+# 简陋的在线 Android 工具箱
 
-一个在线 ProGuard 反混淆工具，支持上传 `mapping.txt` 文件与粘贴混淆堆栈，快速还原原始堆栈信息。
+## 功能
 
-## 使用方式
-
-1. 打开网页
-2. 上传 `mapping.txt` 文件
-3. 粘贴混淆后的堆栈日志
-4. 查看还原后的堆栈信息
+- [x] ProGuard 反混淆工具
+- [x] Qualcomm Splash.img 生成工具
+- [x] Android bootanimation.zip 生成工具
+- [ ] 在线ADB工具
+- [ ] 获取APK签名证书指纹
+- [ ] 其他
 
 ## 技术栈
 
 - Next.js 15
 - TypeScript 5
 - React 19
-- Ant Design 5
 - Tailwind CSS 4
-- uuid
 
 ## 部署
+
 ```bash
 apt install google-android-cmdline-tools-11.0-installer
 
