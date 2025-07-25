@@ -20,7 +20,7 @@ export default function Home() {
                             router.push("proguard")
                         }}
                     >
-                        ProGuard 反混淆
+                        ProGuard 反混淆工具
                     </button>
                     <button
                         className="bg-white text-[#5D8BF4] px-6 py-3 rounded-full font-semibold cursor-pointer m-1"
@@ -28,7 +28,7 @@ export default function Home() {
                             router.push("splash")
                         }}
                     >
-                        Splash.img
+                        Qualcomm Splash.img 生成工具
                     </button>
                     <button
                         className="bg-white text-[#5D8BF4] px-6 py-3 rounded-full font-semibold cursor-pointer m-1"
@@ -36,7 +36,7 @@ export default function Home() {
                             router.push("bootanimation")
                         }}
                     >
-                        Boot Animation
+                        Android bootanimation.zip 生成工具
                     </button>
                 </div>
             </div>
