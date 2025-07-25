@@ -1,5 +1,6 @@
 'use client'
 import {downloadFile, selectFile} from "@/app/utils/common";
+import {makeSplashFromImage} from "@/app/utils/splash";
 
 export default function Home() {
     const make = async () => {

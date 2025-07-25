@@ -68,7 +68,7 @@ function makeHeader(width: number, height: number, compressed: number, bodyLengt
     return header;
 }
 
-async function makeSplashFromImage(file: File) {
+export async function makeSplashFromImage(file: File) {
     const canvas = document.createElement('canvas');
     const img = document.createElement('img');
     img.src = URL.createObjectURL(file);
